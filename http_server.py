@@ -153,6 +153,9 @@ def server(log_buffer=sys.stderr):
                     response = response_ok(my_content, my_mimetype)
 
                 except NotImplementedError:
+                    response = response_method_not_allowed()
+
+                except NameError:
                     response = response_not_found()
                     
                 # DONE: Use response_path to retrieve the content and the mimetype,
@@ -166,6 +169,7 @@ def server(log_buffer=sys.stderr):
                 # response = response_ok(
 
                 conn.sendall(response)
+
             except:
                 traceback.print_exc()
             finally:
